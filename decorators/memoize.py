@@ -1,5 +1,5 @@
 from collections import defaultdict
-from itertools import chain 
+from itertools import chain
 
 
 _memoize_cache = defaultdict(dict)
@@ -8,7 +8,7 @@ _memoize_cache = defaultdict(dict)
 def memoize(func):
     def wrapper(*args, **kwargs):
         previous_calls = _memoize_cache[func]
-        key = str(args) + str({k : kwargs[k] for k in sorted(kwargs)}) 
+        key = str(args) + str({k : kwargs[k] for k in sorted(kwargs)})
         if key in previous_calls:
             return previous_calls[key]
         else:

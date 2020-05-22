@@ -1,7 +1,7 @@
 from decorators.memoize import memoize
 
 
-def test_no_args(): 
+def test_no_args():
     @memoize
     def unstable():
         from random import randint
@@ -17,7 +17,6 @@ def test_some_args():
     assert unstable(10000) == unstable(10000)
     assert unstable(11000) != unstable(10000)
     assert unstable(11000) == unstable(11000)
-
 
 
 def test_some_kwargs():
