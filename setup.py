@@ -13,6 +13,7 @@ setup(
                      'gspread',
                      'oauth2client',
                      'simplejson',
-                     'flake8'],
+                     'flake8',
+                     'pandas'],
    scripts=[f for f in glob.glob('youtube/*')]
 )
