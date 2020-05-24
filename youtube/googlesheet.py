@@ -63,6 +63,7 @@ if __name__ == '__main__':
     client = make_google_client(args.google_key)
     if args.list:
         list_sheets(client)
+        exit()
     if not find_sheet(args.sheet) and args.create():
         # Point 6: this is an interesting feature. You can create
         #   sheets that are owned by the service account. This will
