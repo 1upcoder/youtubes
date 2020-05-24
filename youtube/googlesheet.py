@@ -73,7 +73,7 @@ if __name__ == '__main__':
         #   them.
         print(f'create sheet: {args.sheet}')
         client.create(args.sheet)
-    if args.sheet:
+    if args.sheet and not args.upload_csv:
         sheet = client.open(args.sheet)
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(sheet.sheet1.get_all_records())
@@ -81,6 +81,6 @@ if __name__ == '__main__':
         def _get_rows():
             with open(args.upload_csv) as data:
                 for line in data:
-                    yield line.split(',')
+                    yield [i.strip() for i in line.split(',')]
         sheet = client.open(args.sheet)
         sheet.sheet1.append_rows(list(_get_rows()))
