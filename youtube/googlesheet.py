@@ -1,6 +1,8 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+import pprint
+
 from utils import paths
 
 
@@ -27,7 +29,7 @@ def make_google_client(keyfile: str):
             be located in ~/etc or in the current directory
     returns: a gspread client
     """
-    # Point 1: There are actaully four URLs you can have here I've just chosen
+    # Point 1: There are actually four URLs you can have here I've just chosen
     #   two of them
     url = ['https://spreadsheets.google.com/feeds',
            'https://www.googleapis.com/auth/drive']
@@ -64,16 +66,17 @@ if __name__ == '__main__':
     if args.list:
         list_sheets(client)
         exit()
-    if not find_sheet(args.sheet) and args.create():
+    if not find_sheet(args.sheet) and args.create:
         # Point 6: this is an interesting feature. You can create
         #   sheets that are owned by the service account. This will
-        #   not be visable by you unless you figureout how to share
+        #   not be visible by you unless you figure out how to share
         #   them.
         print(f'create sheet: {args.sheet}')
         client.create(args.sheet)
     if args.sheet:
         sheet = client.open(args.sheet)
-        print(sheet.sheet1.get_all_records())
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(sheet.sheet1.get_all_records())
     if args.upload_csv:
         def _get_rows():
             with open(args.upload_csv) as data:
